@@ -1,0 +1,38 @@
+# Flask and extensions
+flask==2.2.3
+flask-login==0.6.2
+flask-wtf==1.1.1
+werkzeug==2.2.3
+python-dotenv==1.0.0
+
+# Database
+sqlalchemy==2.0.7
+flask-sqlalchemy==3.0.3
+alembic==1.10.2
+
+# Image processing
+Pillow==9.4.0
+numpy==1.24.2
+opencv-python==4.7.0.72
+
+# AI models
+transformers==4.27.4
+torch==2.0.0
+diffusers==0.14.0
+accelerate==0.18.0
+
+# Audio processing
+pydub==0.25.1
+SpeechRecognition==3.10.0
+librosa==0.10.0
+
+# Video processing
+ffmpeg-python==0.2.0
+
+# Utils
+tqdm==4.65.0
+requests==2.28.2
+python-slugify==8.0.1
+
+# For development
+pytest==7.3.1

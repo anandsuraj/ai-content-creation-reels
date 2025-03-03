@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# Media and Generated Content
+media/
+static/uploads/
+generated_content/
+thumbnails/
+
+# Cache and temp files
+.cache/
+.pytest_cache/
+*.log
+*.pot
+*.pyc
+.coverage
+htmlcov/
+.coverage.*
+
+# Database
+*.db
+*.sqlite3
+*.sqlite
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+*.pem
+config.ini
+secrets.json
+
+# OS-specific
+.DS_Store
+Thumbs.db

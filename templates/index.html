@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}AI Content Platform - Home{% endblock %}
+
+{% block styles %}
+<style>
+    .hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 4rem 0;
+        border-radius: 15px;
+    }
+    
+    .feature-card {
+        border-radius: 8px;
+        transition: transform 0.3s;
+        height: 100%;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero my-5 text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Transform Your Content Creation</h1>
+        <p class="lead mb-4">Generate engaging text, images, audio, and video with the power of AI</p>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('content.create_content') }}" class="btn btn-light btn-lg">Start Creating</a>
+        {% else %}
+            <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg me-2">Get Started</a>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-lg">Login</a>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="my-5">
+    <h2 class="text-center mb-5">Powerful Content Creation Features</h2>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="card feature-card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-quote-right text-primary feature-icon"></i>
+                    <h5 class="card-title">Text to Photo Quote</h5>
+                    <p class="card-text">Transform your text into beautiful quote images with custom backgrounds and styling.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card feature-card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-film text-primary feature-icon"></i>
+                    <h5 class="card-title">Text to Video Reel</h5>
+                    <p class="card-text">Convert your text into engaging video reels with dynamic animations and music.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card feature-card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-microphone text-primary feature-icon"></i>
+                    <h5 class="card-title">Voice to Video</h5>
+                    <p class="card-text">Turn your voice recordings into captivating videos with synchronized captions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card feature-card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-tie text-primary feature-icon"></i>
+                    <h5 class="card-title">Avatar Videos</h5>
+                    <p class="card-text">Create videos with custom avatars that speak your text or audio recordings.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="my-5 py-5 bg-light rounded">
+    <div class="container">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <span class="fs-4">1</span>
+                </div>
+                <h4>Choose a Format</h4>
+                <p>Select from multiple content formats based on your needs.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <span class="fs-4">2</span>
+                </div>
+                <h4>Input Your Content</h4>
+                <p>Enter text or upload voice recordings as your content source.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <span class="fs-4">3</span>
+                </div>
+                <h4>Generate & Share</h4>
+                <p>Our AI creates your

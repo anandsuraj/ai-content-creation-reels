@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block title %}Create Content - AI Content Platform{% endblock %}
+
+{% block styles %}
+<style>
+    .format-card {
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .format-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .format-card.selected {
+        border-color: #007bff;
+        background-color: #f8f9fa;
+    }
+    
+    .format-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    #preview-area {
+        min-height: 200px;
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Create Content</h1>
+    
+    <form method="POST" enctype="multipart/form-data">
+        <!-- Content Format Selection -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="format-card card p-3 text-center" data-format="photo_quote">
+                    <i class="fas fa-quote-right text-primary format-icon"></i>
+                    <h5>Photo Quote</h5>
+                    <p class="small text-muted">Transform text into beautiful quote images</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="format-card card p-3 text-center" data-format="video_reel">
+                    <i class="fas fa-film text-primary format-icon"></i>
+                    <h5>Video Reel</h5>
+                    <p class="small text-muted">Create engaging video reels with animations</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="format-card card p-3 text-center" data-format="voice_video">
+                    <i class="fas fa-microphone text-primary format-icon"></i>
+                    <h5>Voice Video</h5>
+                    <p class="small text-muted">Convert voice recordings into videos</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="format-card card p-3 text-center" data-format="avatar_video">
+                    <i class="fas fa-user-tie text-primary format-icon"></i>
+                    <h5>Avatar Video</h5>
+                    <p class="small text-muted">Create videos with AI avatars</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden input for selected format -->
+        <input type="hidden" name="content_type" id="content_type" required>
+        
+        <!-- Title Input -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        
+        <!-- Dynamic Content Input Section -->
+        <div id="content-inputs">
+            <div class="mb-3 text-input-section">
+                <label for="input_text" class="form-label">Text Content</label>
+                <textarea class="form-control" id="input_text" name="input_text" rows="4"></textarea>
+                <button type="button" class="btn btn-outline-primary mt-2" id="generate-prompts">
+                    <i class="fas fa-magic"></i> Generate Prompts
+                </button>
+            </div>
+            
+            <div class="mb-3 audio-input-section" style="display: none;">
+                <label for="audio_file" class="form-label">Audio File</label>
+                <input type="file" class="form-control" id="audio_file" name="audio_file" accept="audio/*">
+            </div>
+        </div>
+        
+        <!-- Preview Area -->
+        <div class="mb-3">
+            <label class="form-label">Preview</label>
+            <div id="preview-area" class="p-4">
+                <p class="text-muted">Content preview will appear here</p>
+            </div>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-magic"></i> Generate Content
+        </button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formatCards = document.querySelectorAll('.format-card');
+    const contentTypeInput = document.getElementById('content_type');
+    const textInput = document.querySelector('.text-input-section');
+    const audioInput = document.querySelector('.audio-input-section');
+    const generatePromptsBtn = document.getElementById('generate-prompts');
+    
+    // Format selection handling
+    formatCards.forEach(card => {
+        card.addEventListener('click', function() {
+            // Remove selection from all cards
+            formatCards.forEach(c => c.classList.remove('selected'));
+            
+            // Select clicked card
+            this.classList.add('selected');
+            
+            // Update hidden input
+            const format = this.dataset.format;
+            contentTypeInput.value = format;
+            
+            // Show/hide appropriate inputs
+            if (format === 'voice_video' || format === 'avatar_video') {
+                audioInput.style.display = 'block';
+            } else {
+                audioInput.style.display = 'none';
+            }
+        });
+    });
+    
+    // Generate prompts button handling
+    generatePromptsBtn.addEventListener('click', async function() {
+        try {
+            const response = await fetch('/api/generate-prompts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    count: 3
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                const promptSelect = document.createElement('select');
+                promptSelect.className = 'form-select mt-2';
+                promptSelect.innerHTML = '<option value="">Select a prompt...</option>';
+                
+                data.prompts.forEach(prompt => {
+                    const option = document.createElement('option');
+                    option.value = prompt;
+                    option.textContent = prompt;
+                    promptSelect.appendChild(option);
+                });
+                
+                promptSelect.addEventListener('change', function() {
+                    if (this.value) {
+                        document.getElementById('input_text').value = this.value;
+                    }
+                });
+                
+                // Replace any existing prompt select
+                const existingSelect = document.querySelector('.prompt-select');
+                if (existingSelect) {
+                    existingSelect.remove();
+                }
+                promptSelect.classList.add('prompt-select');
+                generatePromptsBtn.parentNode.insertBefore(promptSelect, generatePromptsBtn.nextSibling);
+            }
+        } catch (error) {
+            console.error('Error generating prompts:', error);
+        }
+    });
+});
+</script>
+{% endblock %}
