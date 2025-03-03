@@ -110,4 +110,28 @@
                     <span class="fs-4">3</span>
                 </div>
                 <h4>Generate & Share</h4>
-                <p>Our AI creates your
+                <p>Our AI creates your content, ready to be shared across platforms.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Call to Action Section -->
+<section class="text-center my-5">
+    <div class="container">
+        <h2 class="mb-4">Ready to Transform Your Content?</h2>
+        <p class="lead mb-4">Join thousands of creators who are already using AI to enhance their content creation.</p>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('content.create_content') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-magic me-2"></i>Start Creating Now
+            </a>
+        {% else %}
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-user-plus me-2"></i>Sign Up Free
+            </a>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

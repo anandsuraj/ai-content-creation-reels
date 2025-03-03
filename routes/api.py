@@ -78,8 +78,6 @@ def remix_content(content_id):
 @api.route('/content-calendar', methods=['GET'])
 @login_required
 def get_content_calendar():
-    # For demonstration purposes, return a simple calendar
-    # In a real application, this would analyze user content and patterns
     calendar = [
         {
             'date': '2023-04-01',

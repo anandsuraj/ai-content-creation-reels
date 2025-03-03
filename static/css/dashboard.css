@@ -1,0 +1,128 @@
+/* Dashboard Layout */
+.dashboard-container {
+    padding: 2rem 0;
+}
+
+/* Stats Cards */
+.stats-card {
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+    border: none;
+    height: 100%;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+.stats-card i {
+    opacity: 0.7;
+    font-size: 2rem;
+}
+
+/* Content Grid */
+.content-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.content-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.content-thumbnail {
+    height: 200px;
+    object-fit: cover;
+    background-color: #f8f9fa;
+}
+
+.content-type-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Content Actions */
+.content-actions {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.content-card:hover .content-actions {
+    opacity: 1;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 1rem;
+}
+
+/* Filters */
+.filter-section {
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    margin-right: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+}
+
+/* Search Input */
+.search-input {
+    border-radius: 20px;
+    padding-left: 2.5rem;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats-card {
+        margin-bottom: 1rem;
+    }
+    
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-btn {
+        margin-bottom: 0.5rem;
+    }
+}
